@@ -1,0 +1,61 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html"; charset="utf-8">
+    <title> Winf Klausur Michelle Krüger </title>
+    
+    <script>
+		"use strict";
+		function fRechnung() {
+			var vZinssatz;
+			var vNRente;
+			var vLaufzeit;
+			var vStartjahr=0;
+			var vKapital;
+			var vZinsen;
+			var vKapital2;
+			var vZinsfaktor;
+			var vRentenendwert;
+			var vAusgabeHtml;
+			
+		vZinssatz = parseFloat(document.getElementById("idZinssatz").value);
+		vNRente = parseFloat(document.getElementById("idNRente").value);
+		vLaufzeit = parseFloat(document.getElementById("idLaufzeit").value);
+		
+		vAusgabeHtml = vAusgabeHtml + "<table border=1>";
+		vAusgabeHtml = vAusgabeHtml + "<tr><th>Jahr</th><th>Kapital am 1.1.</th><th>Zinsen am 31.12.</th><th>Rente am 31.12</th><th>Kapital am 31.12</th></tr>";
+		
+		vZinsfaktor = 1 + vZinssatz/100;
+		
+		while(vStartjahr<=vLaufzeit){
+			vRentenendwert= vNRente * (Math.pow(vZinsfaktor,vLaufzeit)-1)/(vZinsfaktor-1);
+			vZinsen= vRentenendwert * vZinsatz/100;
+			vKapital2= vRentenendwert + vZinsen + vRente;
+			
+			vAusgabeHtml = vAusgabeHtml + "<tr><td>" + vStartjahr + "</td><td>" + vRentenendwert.toFixed(2) + "</td><td>" + vZinsen.toFixed(2) + "</td><td>" + vNRente.toFixed(2) + "</td><td>" + vKapital2.toFixed(2) + "</td></tr>";
+			vAusgabeHtml = vAusgabeHtml + "Der Rentenendwert beträgt" + vRentenendwert + "€";
+			vStartjahr ++;
+		
+		}
+		
+		document.getElementById("idAusgabeHtml").innerHTML = vAusgabeHtml;
+		
+		}
+	</script>
+
+</head>
+<body>
+
+	<h1>Nachschüssiger Rentenendwertrechner</h1>
+    
+    Zinssatz: <input id="Zinssatz" type="text" value="2" maxlength="5" size="15">%
+    <br>    
+    Nachschüssige Rente: <input id="NRente" type="text" value="100" maxlength="5" size="15">€
+    <br>
+    Laufzeit: <input id="Laufzeit" type="text" value="5" maxlength="5" size="15">Jahre
+    <br><br>
+    <button onClick="fRechnung();">Berechnen</button>
+    
+    <div id="idAusgabeHtml">
+    
+</body>
+</html>
